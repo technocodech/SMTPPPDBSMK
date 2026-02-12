@@ -1,0 +1,1528 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+    <title>PPDB 2026 - Sekolah Profesional Premium</title>
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Font: Poppins -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome 6.5 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --primary-navy: #0A1A3A;
+            --secondary-gold: #D4AF37;
+            --accent-gold: #FFD700;
+            --light-gold: #FFF8E1;
+            --dark-blue: #06122A;
+        }
+        
+        * {
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        /* Hero Background dengan Parallax */
+        .hero-bg {
+            background-image: linear-gradient(135deg, rgba(10, 26, 58, 0.95) 0%, rgba(6, 18, 42, 0.98) 100%), 
+                              url('https://images.unsplash.com/photo-1523050854058-8df90110c9f1?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        /* Gold Gradient */
+        .gold-gradient {
+            background: linear-gradient(135deg, #D4AF37 0%, #FFD700 50%, #F4C430 100%);
+        }
+        
+        .gold-gradient-text {
+            background: linear-gradient(135deg, #D4AF37 0%, #FFD700 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        /* Button Styles */
+        .btn-gold {
+            background: linear-gradient(135deg, #D4AF37 0%, #FFD700 100%);
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
+        }
+        .btn-gold:hover {
+            background: linear-gradient(135deg, #FFD700 0%, #D4AF37 100%);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(212, 175, 55, 0.4);
+        }
+        
+        .btn-outline-gold {
+            border: 2px solid #D4AF37;
+            color: #D4AF37;
+            transition: all 0.3s ease;
+        }
+        .btn-outline-gold:hover {
+            background: linear-gradient(135deg, #D4AF37 0%, #FFD700 100%);
+            color: white;
+            border-color: transparent;
+        }
+        
+        /* Colors */
+        .bg-navy { background-color: var(--primary-navy); }
+        .text-navy { color: var(--primary-navy); }
+        .border-navy { border-color: var(--primary-navy); }
+        
+        .bg-dark-blue { background-color: var(--dark-blue); }
+        
+        /* Animasi */
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        
+        .animate-float {
+            animation: float 3s ease-in-out infinite;
+        }
+        
+        /* Hover Effects */
+        .hover-lift {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .hover-lift:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+        }
+        
+        /* Card Styles */
+        .card-elegant {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .card-elegant::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, #D4AF37 0%, #FFD700 100%);
+        }
+        
+        /* Form Card Premium */
+        .form-card-premium {
+            background: white;
+            border-radius: 32px;
+            overflow: hidden;
+            position: relative;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15);
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            backdrop-filter: blur(10px);
+        }
+        
+        .form-card-premium::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 6px;
+            background: linear-gradient(90deg, #D4AF37 0%, #FFD700 50%, #D4AF37 100%);
+        }
+        
+        /* Input Styles */
+        .input-premium {
+            width: 100%;
+            padding: 14px 20px 14px 48px;
+            border: 2px solid #e5e7eb;
+            border-radius: 16px;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+            background: white;
+        }
+        
+        .input-premium:hover {
+            border-color: #D4AF37;
+            background: #FFF8E1;
+        }
+        
+        .input-premium:focus {
+            outline: none;
+            border-color: #D4AF37;
+            box-shadow: 0 0 0 4px rgba(212, 175, 55, 0.15);
+            background: white;
+        }
+        
+        .input-wrapper {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+        
+        .input-icon {
+            position: absolute;
+            left: 18px;
+            color: #9ca3af;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            pointer-events: none;
+        }
+        
+        .input-premium:focus + .input-icon {
+            color: #D4AF37;
+            transform: scale(1.1);
+        }
+        
+        /* File Upload Premium */
+        .file-upload-premium {
+            background: linear-gradient(135deg, #FFF8E1 0%, white 100%);
+            border: 2px dashed #D4AF37;
+            border-radius: 24px;
+            padding: 40px 32px;
+            text-align: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+        }
+        
+        .file-upload-premium:hover {
+            background: #FFF8E1;
+            border-color: #FFD700;
+            transform: translateY(-2px);
+            box-shadow: 0 15px 30px -10px rgba(212, 175, 55, 0.2);
+        }
+        
+        .file-upload-icon {
+            width: 80px;
+            height: 80px;
+            background: rgba(212, 175, 55, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+        }
+        
+        .file-upload-icon i {
+            font-size: 2rem;
+            color: #D4AF37;
+        }
+        
+        .file-upload-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: var(--primary-navy);
+            color: white;
+            padding: 14px 28px;
+            border-radius: 50px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .file-upload-button:hover {
+            background: #0A1A3A;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(10, 26, 58, 0.2);
+        }
+        
+        .file-upload-button i {
+            color: #FFD700;
+        }
+        
+        .file-name {
+            display: block;
+            margin-top: 16px;
+            color: #D4AF37;
+            font-size: 0.95rem;
+            font-weight: 500;
+        }
+        
+        /* Checkbox Premium */
+        .checkbox-premium {
+            background: linear-gradient(135deg, #FFF8E1 0%, white 100%);
+            border-radius: 20px;
+            padding: 24px;
+            margin: 32px 0;
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            transition: all 0.3s ease;
+        }
+        
+        .checkbox-premium:hover {
+            background: white;
+            border-color: #D4AF37;
+            box-shadow: 0 10px 25px -5px rgba(212, 175, 55, 0.2);
+        }
+        
+        .checkbox-container {
+            display: flex;
+            align-items: flex-start;
+            gap: 16px;
+        }
+        
+        .checkbox-container input[type="checkbox"] {
+            width: 22px;
+            height: 22px;
+            accent-color: #D4AF37;
+            border-radius: 6px;
+            margin-top: 2px;
+            cursor: pointer;
+        }
+        
+        .checkbox-title {
+            font-weight: 600;
+            color: var(--primary-navy);
+            margin-bottom: 6px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .checkbox-title i {
+            color: #D4AF37;
+        }
+        
+        .checkbox-description {
+            color: #6b7280;
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+        
+        .checkbox-description a {
+            color: #D4AF37;
+            text-decoration: none;
+            font-weight: 600;
+        }
+        
+        .checkbox-description a:hover {
+            text-decoration: underline;
+        }
+        
+        /* Submit Button Premium */
+        .btn-submit-gold {
+            width: 100%;
+            background: linear-gradient(135deg, #0A1A3A 0%, #1e3a5f 100%);
+            color: white;
+            border: none;
+            padding: 18px 32px;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 15px 30px -5px rgba(10, 26, 58, 0.3);
+        }
+        
+        .btn-submit-gold::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 215, 0, 0.2), transparent);
+            transition: left 0.5s ease;
+        }
+        
+        .btn-submit-gold:hover {
+            background: linear-gradient(135deg, #0A1A3A 0%, #2a4a6a 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 20px 35px -8px rgba(10, 26, 58, 0.4);
+        }
+        
+        .btn-submit-gold:hover::before {
+            left: 100%;
+        }
+        
+        .btn-submit-gold i {
+            color: #FFD700;
+            font-size: 1.2rem;
+        }
+        
+        .btn-submit-gold:disabled {
+            opacity: 0.7;
+            transform: none;
+            box-shadow: none;
+            cursor: not-allowed;
+        }
+        
+        /* Error State */
+        .input-premium.error {
+            border-color: #ef4444;
+            background: #fef2f2;
+        }
+        
+        .error-message {
+            color: #ef4444;
+            font-size: 0.85rem;
+            margin-top: 8px;
+            margin-left: 12px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        /* Alert Custom */
+        .custom-alert {
+            position: fixed;
+            top: 100px;
+            right: 30px;
+            min-width: 360px;
+            background: white;
+            border-radius: 20px;
+            padding: 18px 24px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+            z-index: 9999;
+            animation: slideIn 0.3s ease;
+            border-left: 5px solid;
+        }
+        
+        .custom-alert.success {
+            border-left-color: #10b981;
+        }
+        
+        .custom-alert.error {
+            border-left-color: #ef4444;
+        }
+        
+        .alert-content {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .custom-alert.success i {
+            color: #10b981;
+        }
+        
+        .custom-alert.error i {
+            color: #ef4444;
+        }
+        
+        .alert-close {
+            background: none;
+            border: none;
+            color: #9ca3af;
+            cursor: pointer;
+            padding: 4px;
+            transition: all 0.3s ease;
+        }
+        
+        .alert-close:hover {
+            color: #4b5563;
+        }
+        
+        @keyframes slideIn {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+        
+        @keyframes slideOut {
+            from {
+                transform: translateX(0);
+                opacity: 1;
+            }
+            to {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+        }
+        
+        /* Scrollbar Custom */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(180deg, #D4AF37 0%, #FFD700 100%);
+            border-radius: 5px;
+        }
+        
+        /* Mobile Menu */
+        .mobile-menu {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(10, 26, 58, 0.98);
+            backdrop-filter: blur(10px);
+            z-index: 100;
+            transform: translateX(-100%);
+            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .mobile-menu.active {
+            transform: translateX(0);
+        }
+        
+        /* Back to top button */
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, #D4AF37 0%, #FFD700 100%);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            cursor: pointer;
+            z-index: 1000;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
+        }
+        
+        .back-to-top.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .back-to-top:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(212, 175, 55, 0.4);
+        }
+        
+        /* Timeline */
+        .timeline {
+            position: relative;
+            padding-left: 30px;
+        }
+        
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 10px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: linear-gradient(180deg, #D4AF37 0%, #FFD700 100%);
+        }
+        
+        .timeline-item {
+            position: relative;
+            margin-bottom: 30px;
+        }
+        
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -30px;
+            top: 5px;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: var(--secondary-gold);
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .custom-alert {
+                left: 20px;
+                right: 20px;
+                min-width: auto;
+            }
+            
+            .form-card-premium {
+                padding: 24px 16px;
+            }
+        }
+        
+        /* Fade In Animation */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+        
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body class="bg-white text-gray-800 overflow-x-hidden">
+    <!-- Back to Top Button -->
+    <div class="back-to-top" id="backToTop">
+        <i class="fas fa-chevron-up"></i>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="fixed w-full bg-white/90 backdrop-blur-md shadow-lg z-50" id="navbar">
+        <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+            <a href="index.html" class="flex items-center space-x-3">
+                <div class="w-12 h-12 gold-gradient rounded-full flex items-center justify-center shadow-lg">
+                    <span class="text-white font-bold text-xl">SP</span>
+                </div>
+                <div>
+                    <span class="text-2xl font-bold text-navy">SMK<span class="gold-gradient-text">MBP</span></span>
+                    <p class="text-xs text-gray-500 -mt-1">Excellence in Education</p>
+                </div>
+            </a>
+            <div class="hidden lg:flex space-x-10 items-center">
+                <a href="index.html" class="text-navy font-medium hover:text-yellow-600 transition-all duration-300 relative group">
+                    Beranda
+                    <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-yellow-600 group-hover:w-full transition-all duration-300"></span>
+                </a>
+                <a href="index.html#profil" class="text-navy font-medium hover:text-yellow-600 transition-all duration-300 relative group">
+                    Profil
+                    <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-yellow-600 group-hover:w-full transition-all duration-300"></span>
+                </a>
+                <a href="index.html#program" class="text-navy font-medium hover:text-yellow-600 transition-all duration-300 relative group">
+                    Program
+                    <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-yellow-600 group-hover:w-full transition-all duration-300"></span>
+                </a>
+                <a href="index.html#fasilitas" class="text-navy font-medium hover:text-yellow-600 transition-all duration-300 relative group">
+                    Fasilitas
+                    <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-yellow-600 group-hover:w-full transition-all duration-300"></span>
+                </a>
+                <a href="index.html#prestasi" class="text-navy font-medium hover:text-yellow-600 transition-all duration-300 relative group">
+                    Prestasi
+                    <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-yellow-600 group-hover:w-full transition-all duration-300"></span>
+                </a>
+                <a href="register.html" class="btn-gold text-white px-8 py-3 rounded-full font-semibold shadow-lg hover:shadow-xl transition-all duration-300">
+                    Daftar Sekarang
+                </a>
+            </div>
+            <button id="menuBtn" class="lg:hidden text-navy focus:outline-none">
+                <i class="fas fa-bars text-2xl"></i>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobileMenu">
+        <div class="flex flex-col h-full">
+            <div class="flex justify-between items-center p-6 border-b border-gray-700">
+                <a href="index.html" class="flex items-center space-x-3">
+                    <div class="w-12 h-12 gold-gradient rounded-full flex items-center justify-center">
+                        <span class="text-white font-bold text-xl">SP</span>
+                    </div>
+                    <div>
+                        <span class="text-2xl font-bold text-white">SMK<span class="gold-gradient-text">MBP</span></span>
+                    </div>
+                </a>
+                <button id="closeMenuBtn" class="text-white text-2xl">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="flex flex-col space-y-0 p-6 flex-grow">
+                <a href="index.html" class="py-4 border-b border-gray-700 text-white hover:text-yellow-400 transition flex items-center text-lg">
+                    <i class="fas fa-home mr-4 text-yellow-400"></i> Beranda
+                </a>
+                <a href="index.html#profil" class="py-4 border-b border-gray-700 text-white hover:text-yellow-400 transition flex items-center text-lg">
+                    <i class="fas fa-school mr-4 text-yellow-400"></i> Profil
+                </a>
+                <a href="index.html#program" class="py-4 border-b border-gray-700 text-white hover:text-yellow-400 transition flex items-center text-lg">
+                    <i class="fas fa-book-open mr-4 text-yellow-400"></i> Program
+                </a>
+                <a href="index.html#fasilitas" class="py-4 border-b border-gray-700 text-white hover:text-yellow-400 transition flex items-center text-lg">
+                    <i class="fas fa-wifi mr-4 text-yellow-400"></i> Fasilitas
+                </a>
+                <a href="index.html#prestasi" class="py-4 border-b border-gray-700 text-white hover:text-yellow-400 transition flex items-center text-lg">
+                    <i class="fas fa-trophy mr-4 text-yellow-400"></i> Prestasi
+                </a>
+                <a href="register.html" class="mt-8 py-4 btn-gold text-white rounded-xl text-lg font-semibold shadow-lg text-center">
+                    <i class="fas fa-user-plus mr-2"></i> Form Pendaftaran
+                </a>
+            </div>
+            <div class="p-6 border-t border-gray-700">
+                <div class="flex space-x-4 justify-center">
+                    <a href="#" class="w-12 h-12 bg-gray-800 hover:bg-yellow-600 rounded-full flex items-center justify-center transition">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                    <a href="#" class="w-12 h-12 bg-gray-800 hover:bg-blue-600 rounded-full flex items-center justify-center transition">
+                        <i class="fab fa-facebook-f"></i>
+                    </a>
+                    <a href="#" class="w-12 h-12 bg-gray-800 hover:bg-blue-400 rounded-full flex items-center justify-center transition">
+                        <i class="fab fa-twitter"></i>
+                    </a>
+                    <a href="#" class="w-12 h-12 bg-gray-800 hover:bg-red-600 rounded-full flex items-center justify-center transition">
+                        <i class="fab fa-youtube"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Hero Section dengan Background Premium -->
+    <section class="hero-bg pt-32 pb-20 md:pt-40 md:pb-28 relative overflow-hidden">
+        <!-- Animated Background Elements -->
+        <div class="absolute top-0 left-0 w-full h-full overflow-hidden">
+            <div class="absolute top-1/4 left-1/4 w-64 h-64 rounded-full gold-gradient opacity-10 animate-float"></div>
+            <div class="absolute bottom-1/4 right-1/4 w-96 h-96 rounded-full bg-blue-900 opacity-5 animate-float" style="animation-delay: 1s;"></div>
+            <div class="absolute top-3/4 left-1/2 w-48 h-48 rounded-full gold-gradient opacity-10 animate-float" style="animation-delay: 2s;"></div>
+        </div>
+        
+        <div class="container mx-auto px-4 relative z-10">
+            <div class="max-w-4xl mx-auto text-center fade-in visible">
+                <div class="inline-flex items-center bg-white/10 backdrop-blur-sm rounded-full px-4 py-2 mb-6">
+                    <span class="text-yellow-400 font-semibold">PPDB 2026/2027</span>
+                    <span class="mx-2 text-gray-300">•</span>
+                    <span class="text-gray-200">Gelombang 1</span>
+                </div>
+                
+                <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight">
+                    Formulir Pendaftaran 
+                    <span class="gold-gradient-text">Siswa Baru</span>
+                </h1>
+                
+                <p class="text-xl text-gray-200 max-w-3xl mx-auto mb-8">
+                    Isi data dengan lengkap dan benar. Setelah mendaftar, Anda akan mendapatkan nomor registrasi dan email konfirmasi.
+                </p>
+                
+                <!-- Deadline Info -->
+                <div class="flex flex-wrap justify-center gap-4 md:gap-8 mt-8">
+                    <div class="bg-white/10 backdrop-blur-sm rounded-xl px-6 py-3 flex items-center">
+                        <i class="fas fa-calendar-alt text-yellow-400 mr-3 text-xl"></i>
+                        <div>
+                            <p class="text-white text-sm">Batas Pendaftaran</p>
+                            <p class="text-white font-bold">30 Juni 2026</p>
+                        </div>
+                    </div>
+                    <div class="bg-white/10 backdrop-blur-sm rounded-xl px-6 py-3 flex items-center">
+                        <i class="fas fa-clock text-yellow-400 mr-3 text-xl"></i>
+                        <div>
+                            <p class="text-white text-sm">Tes Masuk</p>
+                            <p class="text-white font-bold">15 Juli 2026</p>
+                        </div>
+                    </div>
+                    <div class="bg-white/10 backdrop-blur-sm rounded-xl px-6 py-3 flex items-center">
+                        <i class="fas fa-check-circle text-yellow-400 mr-3 text-xl"></i>
+                        <div>
+                            <p class="text-white text-sm">Pengumuman</p>
+                            <p class="text-white font-bold">25 Juli 2026</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Scroll Indicator -->
+        <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
+            <a href="#form-section" class="text-white text-2xl">
+                <i class="fas fa-chevron-down"></i>
+            </a>
+        </div>
+    </section>
+
+    <!-- Form Section -->
+    <section id="form-section" class="py-16 md:py-24 bg-gradient-to-b from-gray-50 to-white">
+        <div class="container mx-auto px-4">
+            <div class="max-w-5xl mx-auto">
+                <!-- Form Card Premium -->
+                <div class="form-card-premium p-6 md:p-10 fade-in">
+                    <div class="flex items-center justify-between mb-8">
+                        <div>
+                            <h2 class="text-3xl md:text-4xl font-bold text-navy mb-2">Form Pendaftaran</h2>
+                            <p class="text-gray-600">Pastikan semua data yang Anda masukkan sudah benar.</p>
+                        </div>
+                        <div class="hidden md:block">
+                            <div class="w-20 h-20 gold-gradient rounded-full flex items-center justify-center">
+                                <i class="fas fa-pen-to-square text-white text-3xl"></i>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- FORM - PASTIKAN ID DAN STRUKTUR SESUAI DENGAN form.js -->
+                    <form id="registrationForm" enctype="multipart/form-data">
+                        <div class="grid md:grid-cols-2 gap-6">
+                            <!-- Nama Lengkap -->
+                            <div class="form-group">
+                                <label class="block text-navy font-semibold mb-2 flex items-center">
+                                    <i class="fas fa-user text-yellow-600 mr-2"></i> Nama Lengkap <span class="text-red-500 ml-1">*</span>
+                                </label>
+                                <div class="input-wrapper">
+                                    <i class="fas fa-user input-icon"></i>
+                                    <input 
+                                        type="text" 
+                                        id="full_name" 
+                                        name="full_name" 
+                                        class="input-premium" 
+                                        placeholder="Masukkan nama lengkap"
+                                        required
+                                    >
+                                </div>
+                            </div>
+                            
+                            <!-- NISN -->
+                            <div class="form-group">
+                                <label class="block text-navy font-semibold mb-2 flex items-center">
+                                    <i class="fas fa-id-card text-yellow-600 mr-2"></i> NISN <span class="text-red-500 ml-1">*</span>
+                                </label>
+                                <div class="input-wrapper">
+                                    <i class="fas fa-id-card input-icon"></i>
+                                    <input 
+                                        type="text" 
+                                        id="nisn" 
+                                        name="nisn" 
+                                        class="input-premium" 
+                                        placeholder="10 digit NISN"
+                                        maxlength="10"
+                                        required
+                                    >
+                                </div>
+                            </div>
+                            
+                            <!-- Email -->
+                            <div class="form-group">
+                                <label class="block text-navy font-semibold mb-2 flex items-center">
+                                    <i class="fas fa-envelope text-yellow-600 mr-2"></i> Email <span class="text-red-500 ml-1">*</span>
+                                </label>
+                                <div class="input-wrapper">
+                                    <i class="fas fa-envelope input-icon"></i>
+                                    <input 
+                                        type="email" 
+                                        id="email" 
+                                        name="email" 
+                                        class="input-premium" 
+                                        placeholder="example@email.com"
+                                        required
+                                    >
+                                </div>
+                            </div>
+                            
+                            <!-- No WhatsApp -->
+                            <div class="form-group">
+                                <label class="block text-navy font-semibold mb-2 flex items-center">
+                                    <i class="fas fa-phone-alt text-yellow-600 mr-2"></i> WhatsApp <span class="text-red-500 ml-1">*</span>
+                                </label>
+                                <div class="input-wrapper">
+                                    <i class="fas fa-phone-alt input-icon"></i>
+                                    <input 
+                                        type="tel" 
+                                        id="phone" 
+                                        name="phone" 
+                                        class="input-premium" 
+                                        placeholder="081234567890"
+                                        required
+                                    >
+                                </div>
+                            </div>
+                            
+                            <!-- Asal Sekolah -->
+                            <div class="form-group">
+                                <label class="block text-navy font-semibold mb-2 flex items-center">
+                                    <i class="fas fa-school text-yellow-600 mr-2"></i> Asal Sekolah <span class="text-red-500 ml-1">*</span>
+                                </label>
+                                <div class="input-wrapper">
+                                    <i class="fas fa-school input-icon"></i>
+                                    <input 
+                                        type="text" 
+                                        id="origin_school" 
+                                        name="origin_school" 
+                                        class="input-premium" 
+                                        placeholder="Nama SMP/MTs asal"
+                                        required
+                                    >
+                                </div>
+                            </div>
+                            
+                            <!-- Jurusan -->
+                            <div class="form-group">
+                                <label class="block text-navy font-semibold mb-2 flex items-center">
+                                    <i class="fas fa-code text-yellow-600 mr-2"></i> Pilihan Jurusan <span class="text-red-500 ml-1">*</span>
+                                </label>
+                                <div class="input-wrapper">
+                                    <i class="fas fa-code input-icon"></i>
+                                    <select id="major" name="major" class="input-premium appearance-none" required>
+                                        <option value="" selected disabled>Pilih jurusan</option>
+                                        <option value="Rekayasa Perangkat Lunak">Rekayasa Perangkat Lunak</option>
+                                        <option value="Teknik Komputer & Jaringan">Teknik Komputer & Jaringan</option>
+                                        <option value="Bisnis Digital">Bisnis Digital</option>
+                                        <option value="Desain Komunikasi Visual">Desain Komunikasi Visual</option>
+                                    </select>
+                                </div>
+                            </div>
+                            
+                            <!-- Alamat (Full Width) -->
+                            <div class="md:col-span-2 form-group">
+                                <label class="block text-navy font-semibold mb-2 flex items-center">
+                                    <i class="fas fa-map-marker-alt text-yellow-600 mr-2"></i> Alamat Lengkap <span class="text-red-500 ml-1">*</span>
+                                </label>
+                                <div class="input-wrapper">
+                                    <i class="fas fa-map-marker-alt input-icon"></i>
+                                    <textarea 
+                                        id="address" 
+                                        name="address" 
+                                        class="input-premium" 
+                                        placeholder="Masukkan alamat lengkap sesuai KTP"
+                                        rows="4"
+                                        required
+                                    ></textarea>
+                                </div>
+                            </div>
+                            
+                            <!-- Upload Berkas (Full Width) -->
+                            <div class="md:col-span-2 form-group">
+                                <label class="block text-navy font-semibold mb-2 flex items-center">
+                                    <i class="fas fa-file-upload text-yellow-600 mr-2"></i> Upload Berkas Persyaratan <span class="text-red-500 ml-1">*</span>
+                                </label>
+                                <div class="file-upload-premium" onclick="document.getElementById('document').click();">
+                                    <input 
+                                        type="file" 
+                                        id="document" 
+                                        name="document" 
+                                        style="display: none;"
+                                        accept=".pdf,.jpg,.jpeg,.png"
+                                        required
+                                    >
+                                    <div class="file-upload-icon">
+                                        <i class="fas fa-cloud-upload-alt"></i>
+                                    </div>
+                                    <h4 class="text-xl font-bold text-navy mb-2">
+                                        Upload Berkas
+                                    </h4>
+                                    <p class="text-gray-600 mb-4">
+                                        PDF, JPG, PNG (Maks. 2MB)
+                                    </p>
+                                    <button type="button" class="file-upload-button" onclick="event.stopPropagation(); document.getElementById('document').click();">
+                                        <i class="fas fa-folder-open"></i>
+                                        Pilih File
+                                    </button>
+                                    <span class="file-name" id="fileNameDisplay">Tidak ada file dipilih</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Checkbox Agreement -->
+                        <div class="checkbox-premium">
+                            <div class="checkbox-container">
+                                <input type="checkbox" id="agreement" name="agreement" required>
+                                <div class="checkbox-content">
+                                    <div class="checkbox-title">
+                                        <i class="fas fa-check-circle"></i>
+                                        Persetujuan & Verifikasi Data
+                                    </div>
+                                    <div class="checkbox-description">
+                                        Saya menyatakan bahwa semua data yang saya isi adalah benar dan dapat 
+                                        dipertanggungjawabkan. Saya setuju dengan 
+                                        <a href="#">Syarat & Ketentuan</a> dan 
+                                        <a href="#">Kebijakan Privasi</a> yang berlaku di SMK MBP.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Submit Button -->
+                        <button type="submit" class="btn-submit-gold">
+                            <i class="fas fa-paper-plane"></i>
+                            Kirim Pendaftaran
+                            <i class="fas fa-arrow-right ml-2"></i>
+                        </button>
+                        
+                        <p class="text-center mt-6 text-gray-500 text-sm flex items-center justify-center">
+                            <i class="fas fa-lock text-yellow-600 mr-2"></i>
+                            Data Anda aman dan terenkripsi
+                        </p>
+                    </form>
+                </div>
+                
+                <!-- Informasi Tambahan -->
+                <div class="grid md:grid-cols-3 gap-6 mt-12 fade-in">
+                    <div class="bg-white rounded-2xl p-6 shadow-lg border border-gray-100 flex items-start">
+                        <div class="w-12 h-12 gold-gradient rounded-full flex items-center justify-center flex-shrink-0 mr-4">
+                            <i class="fas fa-check-circle text-white text-xl"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-navy mb-1">Verifikasi Cepat</h4>
+                            <p class="text-gray-600 text-sm">Email konfirmasi dikirim otomatis setelah pendaftaran</p>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-white rounded-2xl p-6 shadow-lg border border-gray-100 flex items-start">
+                        <div class="w-12 h-12 gold-gradient rounded-full flex items-center justify-center flex-shrink-0 mr-4">
+                            <i class="fas fa-shield-alt text-white text-xl"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-navy mb-1">Keamanan Data</h4>
+                            <p class="text-gray-600 text-sm">Data Anda dilindungi dengan enkripsi SSL</p>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-white rounded-2xl p-6 shadow-lg border border-gray-100 flex items-start">
+                        <div class="w-12 h-12 gold-gradient rounded-full flex items-center justify-center flex-shrink-0 mr-4">
+                            <i class="fas fa-headset text-white text-xl"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-navy mb-1">Bantuan 24/7</h4>
+                            <p class="text-gray-600 text-sm">Hubungi panitia jika mengalami kendala</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Timeline Pendaftaran -->
+    <section class="py-16 bg-navy text-white">
+        <div class="container mx-auto px-4">
+            <div class="max-w-4xl mx-auto">
+                <div class="text-center mb-12 fade-in">
+                    <h2 class="text-3xl md:text-4xl font-bold mb-4">Alur Pendaftaran</h2>
+                    <div class="w-24 h-1 gold-gradient mx-auto mb-6 rounded-full"></div>
+                    <p class="text-gray-300 text-lg">Ikuti langkah-langkah berikut untuk menyelesaikan pendaftaran</p>
+                </div>
+                
+                <div class="timeline fade-in">
+                    <div class="timeline-item">
+                        <h4 class="text-xl font-bold text-yellow-400 mb-2">Langkah 1: Isi Formulir</h4>
+                        <p class="text-gray-300">Lengkapi semua data diri dan upload berkas persyaratan dengan benar.</p>
+                    </div>
+                    
+                    <div class="timeline-item">
+                        <h4 class="text-xl font-bold text-yellow-400 mb-2">Langkah 2: Verifikasi Email</h4>
+                        <p class="text-gray-300">Cek email Anda untuk mendapatkan nomor registrasi dan petunjuk selanjutnya.</p>
+                    </div>
+                    
+                    <div class="timeline-item">
+                        <h4 class="text-xl font-bold text-yellow-400 mb-2">Langkah 3: Tes Masuk</h4>
+                        <p class="text-gray-300">Ikuti tes potensi akademik dan wawancara sesuai jadwal yang ditentukan.</p>
+                    </div>
+                    
+                    <div class="timeline-item">
+                        <h4 class="text-xl font-bold text-yellow-400 mb-2">Langkah 4: Pengumuman</h4>
+                        <p class="text-gray-300">Hasil seleksi akan diumumkan melalui email dan website sekolah.</p>
+                    </div>
+                    
+                    <div class="timeline-item">
+                        <h4 class="text-xl font-bold text-yellow-400 mb-2">Langkah 5: Daftar Ulang</h4>
+                        <p class="text-gray-300">Lakukan daftar ulang dan pembayaran biaya pendidikan sesuai ketentuan.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-12">
+        <div class="container mx-auto px-4">
+            <div class="grid md:grid-cols-4 gap-10">
+                <div>
+                    <div class="flex items-center space-x-3 mb-6">
+                        <div class="w-14 h-14 gold-gradient rounded-full flex items-center justify-center">
+                            <span class="text-white font-bold text-2xl">SM</span>
+                        </div>
+                        <div>
+                            <span class="text-3xl font-bold">SMK<span class="gold-gradient-text">MBP</span></span>
+                            <p class="text-gray-400 text-sm -mt-1">Excellence in Education</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-400 mb-6">Mempersiapkan generasi unggul dengan pendidikan terbaik, teknologi terkini, dan pengembangan karakter untuk masa depan gemilang.</p>
+                    <div class="flex space-x-3">
+                        <a href="#" class="w-10 h-10 bg-gray-800 hover:bg-yellow-600 rounded-full flex items-center justify-center transition">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 bg-gray-800 hover:bg-blue-600 rounded-full flex items-center justify-center transition">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 bg-gray-800 hover:bg-blue-400 rounded-full flex items-center justify-center transition">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 bg-gray-800 hover:bg-red-600 rounded-full flex items-center justify-center transition">
+                            <i class="fab fa-youtube"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <div>
+                    <h4 class="text-xl font-bold mb-6">Link Cepat</h4>
+                    <ul class="space-y-3 text-gray-400">
+                        <li><a href="index.html" class="hover:text-yellow-400 transition flex items-center"><i class="fas fa-chevron-right text-yellow-400 mr-2 text-xs"></i> Beranda</a></li>
+                        <li><a href="index.html#profil" class="hover:text-yellow-400 transition flex items-center"><i class="fas fa-chevron-right text-yellow-400 mr-2 text-xs"></i> Profil Sekolah</a></li>
+                        <li><a href="index.html#program" class="hover:text-yellow-400 transition flex items-center"><i class="fas fa-chevron-right text-yellow-400 mr-2 text-xs"></i> Program Pendidikan</a></li>
+                        <li><a href="index.html#fasilitas" class="hover:text-yellow-400 transition flex items-center"><i class="fas fa-chevron-right text-yellow-400 mr-2 text-xs"></i> Fasilitas</a></li>
+                        <li><a href="index.html#prestasi" class="hover:text-yellow-400 transition flex items-center"><i class="fas fa-chevron-right text-yellow-400 mr-2 text-xs"></i> Prestasi</a></li>
+                        <li><a href="register.html" class="hover:text-yellow-400 transition flex items-center"><i class="fas fa-chevron-right text-yellow-400 mr-2 text-xs"></i> Pendaftaran</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="text-xl font-bold mb-6">Program Unggulan</h4>
+                    <ul class="space-y-3 text-gray-400">
+                        <li><a href="#" class="hover:text-yellow-400 transition flex items-center"><i class="fas fa-graduation-cap text-yellow-400 mr-2"></i> Rekayasa Perangkat Lunak</a></li>
+                        <li><a href="#" class="hover:text-yellow-400 transition flex items-center"><i class="fas fa-microchip text-yellow-400 mr-2"></i> Teknik Komputer & Jaringan</a></li>
+                        <li><a href="#" class="hover:text-yellow-400 transition flex items-center"><i class="fas fa-chart-line text-yellow-400 mr-2"></i> Bisnis Digital</a></li>
+                        <li><a href="#" class="hover:text-yellow-400 transition flex items-center"><i class="fas fa-camera text-yellow-400 mr-2"></i> Desain Komunikasi Visual</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="text-xl font-bold mb-6">Kontak</h4>
+                    <ul class="space-y-3 text-gray-400">
+                        <li class="flex items-start">
+                            <i class="fas fa-map-marker-alt text-yellow-400 mr-3 mt-1"></i>
+                            <span>JL.Raya Randudongkal, Belik Pemalang 52356</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-phone-alt text-yellow-400 mr-3"></i>
+                            <span>(021) 1234-5678</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-envelope text-yellow-400 mr-3"></i>
+                            <span>info@smkmbp.sch.id</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-clock text-yellow-400 mr-3"></i>
+                            <span>Senin - Jumat, 07.00 - 16.00</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-800 mt-10 pt-8 text-center text-gray-400">
+                <div class="flex flex-col md:flex-row justify-between items-center">
+                    <p>&copy; 2026 SMK MBP - Sekolah Profesional Premium. All rights reserved.</p>
+                    <div class="flex space-x-6 mt-4 md:mt-0">
+                        <a href="#" class="hover:text-yellow-400 transition">Kebijakan Privasi</a>
+                        <a href="#" class="hover:text-yellow-400 transition">Syarat & Ketentuan</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript untuk Mobile Menu, Back to Top, dll -->
+    <script>
+        // Mobile Menu Toggle
+        const menuBtn = document.getElementById('menuBtn');
+        const closeMenuBtn = document.getElementById('closeMenuBtn');
+        const mobileMenu = document.getElementById('mobileMenu');
+        let isMenuOpen = false;
+
+        menuBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            isMenuOpen = true;
+            mobileMenu.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        });
+
+        closeMenuBtn.addEventListener('click', () => {
+            isMenuOpen = false;
+            mobileMenu.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        });
+
+        // Close menu when clicking outside
+        document.addEventListener('click', (e) => {
+            if (isMenuOpen && 
+                !mobileMenu.contains(e.target) && 
+                !menuBtn.contains(e.target)) {
+                
+                isMenuOpen = false;
+                mobileMenu.classList.remove('active');
+                document.body.style.overflow = 'auto';
+            }
+        });
+
+        // Close menu when clicking on a link
+        mobileMenu.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                isMenuOpen = false;
+                mobileMenu.classList.remove('active');
+                document.body.style.overflow = 'auto';
+            });
+        });
+
+        // Back to top button
+        const backToTopBtn = document.getElementById('backToTop');
+        
+        window.addEventListener('scroll', () => {
+            if (window.pageYOffset > 300) {
+                backToTopBtn.classList.add('show');
+            } else {
+                backToTopBtn.classList.remove('show');
+            }
+        });
+
+        backToTopBtn.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+
+        // Navbar background on scroll
+        const navbar = document.getElementById('navbar');
+        
+        window.addEventListener('scroll', () => {
+            if (window.pageYOffset > 50) {
+                navbar.classList.add('shadow-lg', 'bg-white/95');
+            } else {
+                navbar.classList.remove('shadow-lg', 'bg-white/95');
+            }
+        });
+
+        // Fade In Observer
+        const fadeElements = document.querySelectorAll('.fade-in');
+        
+        const fadeInObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    fadeInObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.1 });
+
+        fadeElements.forEach(element => {
+            fadeInObserver.observe(element);
+        });
+    </script>
+
+    <!-- ============================================ -->
+    <!-- SCRIPT FORM - 100% FUNGSIONAL TIDAK DIUBAH  -->
+    <!-- ============================================ -->
+    
+    <!-- Config JS - PASTIKAN BASE_URL SESUAI -->
+    <script>
+        // ============================================
+        // PRODUCTION CONFIGURATION - JANGAN DIUBAH
+        // ============================================
+        const BASE_URL = "http://127.0.0.1:8000";
+        window.BASE_URL = BASE_URL;
+        window.APP_NAME = "SMK MBP";
+        window.PPDB_YEAR = "2026/2027";
+        console.log(`🔥 API URL: ${window.BASE_URL}`);
+    </script>
+
+    <!-- API Service -->
+    <script>
+        // ============================================
+        // API SERVICE - JANGAN DIUBAH
+        // ============================================
+        class ApiService {
+            constructor() {
+                this.baseUrl = window.BASE_URL;
+                console.log("✅ API Service ready:", this.baseUrl);
+            }
+
+            async register(formData) {
+                try {
+                    console.log("📤 Mengirim data pendaftaran...");
+                    
+                    const response = await fetch(`${this.baseUrl}/api/register`, {
+                        method: 'POST',
+                        body: formData,
+                    });
+
+                    const data = await response.json();
+
+                    if (!response.ok) {
+                        throw new Error(data.detail || data.message || 'Pendaftaran gagal');
+                    }
+
+                    return {
+                        success: true,
+                        message: data.message,
+                        registration_number: data.registration_number,
+                        data: data
+                    };
+
+                } catch (error) {
+                    console.error("❌ Error:", error.message);
+                    
+                    let errorMessage = error.message;
+                    if (error.message.includes('Failed to fetch')) {
+                        errorMessage = 'Tidak dapat terhubung ke server. Pastikan backend sudah running.';
+                    }
+                    
+                    return {
+                        success: false,
+                        error: errorMessage
+                    };
+                }
+            }
+
+            async healthCheck() {
+                try {
+                    const response = await fetch(`${this.baseUrl}/api/health`);
+                    const data = await response.json();
+                    console.log("💚 Server health:", data);
+                    return data;
+                } catch (error) {
+                    console.error("💔 Server down:", error.message);
+                    return null;
+                }
+            }
+        }
+
+        window.api = new ApiService();
+        
+        // Auto health check
+        setTimeout(() => {
+            window.api.healthCheck();
+        }, 1000);
+    </script>
+
+    <!-- FORM HANDLER - 100% SAMA, JANGAN DIUBAH! -->
+    <script>
+        // ============================================
+        // FORM HANDLER - PRODUCTION READY
+        // ============================================
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log("🚀 DOM loaded - initializing form...");
+            
+            const form = document.getElementById('registrationForm');
+            
+            if (!form) {
+                console.error("❌ Form tidak ditemukan!");
+                return;
+            }
+            
+            console.log("✅ Form ditemukan, mengaktifkan handler...");
+            
+            // ========== FILE UPLOAD HANDLER ==========
+            const fileInput = document.getElementById('document');
+            const fileNameDisplay = document.getElementById('fileNameDisplay');
+            const fileUploadArea = document.querySelector('.file-upload-premium');
+            
+            if (fileInput && fileNameDisplay) {
+                fileInput.addEventListener('change', function(e) {
+                    if (this.files && this.files[0]) {
+                        const file = this.files[0];
+                        fileNameDisplay.textContent = file.name;
+                        fileNameDisplay.style.color = '#D4AF37';
+                        
+                        // Validasi file
+                        const maxSize = 2 * 1024 * 1024;
+                        const allowedTypes = ['application/pdf', 'image/jpeg', 'image/jpg', 'image/png'];
+                        
+                        if (!allowedTypes.includes(file.type)) {
+                            showAlert('Format file harus PDF, JPG, atau PNG', 'error');
+                            this.value = '';
+                            fileNameDisplay.textContent = 'Tidak ada file dipilih';
+                            return;
+                        }
+                        
+                        if (file.size > maxSize) {
+                            showAlert('Ukuran file maksimal 2MB', 'error');
+                            this.value = '';
+                            fileNameDisplay.textContent = 'Tidak ada file dipilih';
+                            return;
+                        }
+                    } else {
+                        fileNameDisplay.textContent = 'Tidak ada file dipilih';
+                    }
+                });
+            }
+            
+            // ========== FORM SUBMISSION ==========
+            form.addEventListener('submit', async function(e) {
+                e.preventDefault();
+                console.log("📤 Form submitted!");
+                
+                // ========== VALIDASI ==========
+                const full_name = document.getElementById('full_name')?.value;
+                const nisn = document.getElementById('nisn')?.value;
+                const email = document.getElementById('email')?.value;
+                const phone = document.getElementById('phone')?.value;
+                const origin_school = document.getElementById('origin_school')?.value;
+                const major = document.getElementById('major')?.value;
+                const address = document.getElementById('address')?.value;
+                const document_file = document.getElementById('document')?.files[0];
+                const agreement = document.getElementById('agreement')?.checked;
+                
+                // Reset error
+                document.querySelectorAll('.error-message').forEach(el => el.remove());
+                document.querySelectorAll('.input-premium').forEach(el => el.classList.remove('error'));
+                
+                let isValid = true;
+                
+                // Validasi Nama
+                if (!full_name || full_name.trim() === '') {
+                    showFieldError('full_name', 'Nama lengkap harus diisi');
+                    isValid = false;
+                }
+                
+                // Validasi NISN
+                if (!nisn || nisn.trim() === '') {
+                    showFieldError('nisn', 'NISN harus diisi');
+                    isValid = false;
+                } else if (!/^\d{10}$/.test(nisn)) {
+                    showFieldError('nisn', 'NISN harus 10 digit angka');
+                    isValid = false;
+                }
+                
+                // Validasi Email
+                if (!email || email.trim() === '') {
+                    showFieldError('email', 'Email harus diisi');
+                    isValid = false;
+                } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+                    showFieldError('email', 'Format email tidak valid');
+                    isValid = false;
+                }
+                
+                // Validasi Phone
+                if (!phone || phone.trim() === '') {
+                    showFieldError('phone', 'Nomor WhatsApp harus diisi');
+                    isValid = false;
+                } else if (!/^(0|62)\d{9,13}$/.test(phone.replace(/\s/g, ''))) {
+                    showFieldError('phone', 'Format nomor WhatsApp tidak valid');
+                    isValid = false;
+                }
+                
+                // Validasi Asal Sekolah
+                if (!origin_school || origin_school.trim() === '') {
+                    showFieldError('origin_school', 'Asal sekolah harus diisi');
+                    isValid = false;
+                }
+                
+                // Validasi Jurusan
+                if (!major || major === '') {
+                    showFieldError('major', 'Pilih jurusan terlebih dahulu');
+                    isValid = false;
+                }
+                
+                // Validasi Alamat
+                if (!address || address.trim() === '') {
+                    showFieldError('address', 'Alamat harus diisi');
+                    isValid = false;
+                }
+                
+                // Validasi File
+                if (!document_file) {
+                    showAlert('Upload berkas persyaratan', 'error');
+                    isValid = false;
+                }
+                
+                // Validasi Agreement
+                if (!agreement) {
+                    showAlert('Anda harus menyetujui syarat dan ketentuan', 'error');
+                    isValid = false;
+                }
+                
+                if (!isValid) {
+                    return;
+                }
+                
+                // ========== SUBMIT TO BACKEND ==========
+                const submitBtn = form.querySelector('button[type="submit"]');
+                const originalText = submitBtn.innerHTML;
+                
+                // Loading state
+                submitBtn.disabled = true;
+                submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Memproses pendaftaran...';
+                
+                try {
+                    const formData = new FormData();
+                    formData.append('full_name', full_name.trim());
+                    formData.append('nisn', nisn.trim());
+                    formData.append('email', email.trim());
+                    formData.append('phone', phone.trim());
+                    formData.append('origin_school', origin_school.trim());
+                    formData.append('major', major);
+                    formData.append('address', address.trim());
+                    formData.append('document', document_file);
+                    
+                    const result = await window.api.register(formData);
+                    
+                    if (result.success) {
+                        showAlert(result.message || 'Pendaftaran berhasil!', 'success');
+                        
+                        if (result.registration_number) {
+                            sessionStorage.setItem('registration_number', result.registration_number);
+                        }
+                        
+                        setTimeout(() => {
+                            window.location.href = 'success.html';
+                        }, 2000);
+                        
+                    } else {
+                        showAlert(result.error || 'Pendaftaran gagal', 'error');
+                        submitBtn.disabled = false;
+                        submitBtn.innerHTML = originalText;
+                    }
+                    
+                } catch (error) {
+                    console.error('Submission error:', error);
+                    showAlert('Terjadi kesalahan sistem', 'error');
+                    submitBtn.disabled = false;
+                    submitBtn.innerHTML = originalText;
+                }
+            });
+            
+            // ========== HELPER FUNCTIONS ==========
+            function showFieldError(fieldId, message) {
+                const field = document.getElementById(fieldId);
+                if (!field) return;
+                
+                field.classList.add('error');
+                
+                const errorDiv = document.createElement('div');
+                errorDiv.className = 'error-message';
+                errorDiv.innerHTML = `<i class="fas fa-exclamation-circle"></i> ${message}`;
+                
+                const oldError = document.getElementById(`error-${fieldId}`);
+                if (oldError) oldError.remove();
+                
+                errorDiv.id = `error-${fieldId}`;
+                
+                const parent = field.closest('.form-group') || field.parentNode;
+                parent.appendChild(errorDiv);
+            }
+            
+            function showAlert(message, type = 'success') {
+                const alertId = 'alert-' + Date.now();
+                const icon = type === 'success' ? 'fa-check-circle' : 'fa-exclamation-circle';
+                
+                const alertHtml = `
+                    <div id="${alertId}" class="custom-alert ${type}">
+                        <div class="alert-content">
+                            <i class="fas ${icon}"></i>
+                            <span>${message}</span>
+                        </div>
+                        <button onclick="this.parentElement.remove()" class="alert-close">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+                `;
+                
+                document.body.insertAdjacentHTML('beforeend', alertHtml);
+                
+                setTimeout(() => {
+                    const alert = document.getElementById(alertId);
+                    if (alert) {
+                        alert.style.animation = 'slideOut 0.3s ease forwards';
+                        setTimeout(() => alert.remove(), 300);
+                    }
+                }, 5000);
+            }
+        });
+    </script>
+</body>
+</html>
