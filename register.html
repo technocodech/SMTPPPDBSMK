@@ -181,7 +181,7 @@
             transform: scale(1.1);
         }
         
-        /* File Upload Premium */
+        /* ========== FIXED UPLOAD CARD - TIDAK BERUBAH ========== */
         .file-upload-premium {
             background: linear-gradient(135deg, #FFF8E1 0%, white 100%);
             border: 2px dashed #D4AF37;
@@ -191,15 +191,42 @@
             transition: all 0.3s ease;
             cursor: pointer;
             position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 280px;
+            width: 100%;
+            box-sizing: border-box;
         }
-        
-        .file-upload-premium:hover {
-            background: #FFF8E1;
-            border-color: #FFD700;
-            transform: translateY(-2px);
-            box-shadow: 0 15px 30px -10px rgba(212, 175, 55, 0.2);
+
+        .file-upload-premium * {
+            max-width: 100%;
         }
-        
+
+        /* Container untuk preview gambar */
+        .file-preview-container {
+            width: 100%;
+            max-width: 200px;
+            margin: 0 auto 20px;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* Preview gambar dengan ukuran FIX */
+        .file-preview {
+            width: 150px !important;
+            height: 150px !important;
+            object-fit: cover !important;
+            border-radius: 16px;
+            border: 3px solid #D4AF37;
+            box-shadow: 0 8px 20px rgba(212, 175, 55, 0.2);
+            display: block;
+        }
+
+        /* Icon preview saat belum upload */
         .file-upload-icon {
             width: 80px;
             height: 80px;
@@ -209,13 +236,15 @@
             align-items: center;
             justify-content: center;
             margin: 0 auto 20px;
+            flex-shrink: 0;
         }
-        
+
         .file-upload-icon i {
             font-size: 2rem;
             color: #D4AF37;
         }
-        
+
+        /* Tombol upload tetap konsisten */
         .file-upload-button {
             display: inline-flex;
             align-items: center;
@@ -229,24 +258,51 @@
             transition: all 0.3s ease;
             border: none;
             cursor: pointer;
+            margin-top: 10px;
+            width: auto;
+            max-width: 100%;
+            box-sizing: border-box;
         }
-        
+
         .file-upload-button:hover {
             background: #0A1A3A;
             transform: translateY(-2px);
             box-shadow: 0 10px 20px rgba(10, 26, 58, 0.2);
         }
-        
+
         .file-upload-button i {
             color: #FFD700;
         }
-        
+
+        /* Nama file dengan overflow handling */
         .file-name {
             display: block;
             margin-top: 16px;
             color: #D4AF37;
             font-size: 0.95rem;
             font-weight: 500;
+            max-width: 100%;
+            word-break: break-word;
+            overflow-wrap: break-word;
+            text-overflow: ellipsis;
+        }
+
+        /* Responsive */
+        @media (max-width: 640px) {
+            .file-upload-premium {
+                padding: 30px 20px;
+                min-height: 250px;
+            }
+            
+            .file-preview {
+                width: 120px !important;
+                height: 120px !important;
+            }
+            
+            .file-upload-button {
+                padding: 12px 24px;
+                font-size: 0.9rem;
+            }
         }
         
         /* Checkbox Premium */
@@ -887,7 +943,7 @@
                                 </div>
                             </div>
                             
-                            <!-- Upload Berkas (Full Width) -->
+                            <!-- ===== UPLOAD BERKAS - FIX TIDAK BERUBAH ===== -->
                             <div class="md:col-span-2 form-group">
                                 <label class="block text-navy font-semibold mb-2 flex items-center">
                                     <i class="fas fa-file-upload text-yellow-600 mr-2"></i> Upload Berkas Persyaratan <span class="text-red-500 ml-1">*</span>
@@ -901,9 +957,15 @@
                                         accept=".pdf,.jpg,.jpeg,.png"
                                         required
                                     >
-                                    <div class="file-upload-icon">
-                                        <i class="fas fa-cloud-upload-alt"></i>
+                                    
+                                    <!-- Preview Container - Ukuran FIX -->
+                                    <div class="file-preview-container">
+                                        <div id="uploadIcon" class="file-upload-icon">
+                                            <i class="fas fa-cloud-upload-alt"></i>
+                                        </div>
+                                        <img id="imagePreview" class="file-preview" style="display: none;" src="#" alt="Preview">
                                     </div>
+                                    
                                     <h4 class="text-xl font-bold text-navy mb-2">
                                         Upload Berkas
                                     </h4>
@@ -1306,10 +1368,12 @@
             
             console.log("✅ Form ditemukan, mengaktifkan handler...");
             
-            // ========== FILE UPLOAD HANDLER ==========
+            // ========== FILE UPLOAD HANDLER - FIX ==========
             const fileInput = document.getElementById('document');
             const fileNameDisplay = document.getElementById('fileNameDisplay');
             const fileUploadArea = document.querySelector('.file-upload-premium');
+            const imagePreview = document.getElementById('imagePreview');
+            const uploadIcon = document.getElementById('uploadIcon');
             
             if (fileInput && fileNameDisplay) {
                 fileInput.addEventListener('change', function(e) {
@@ -1326,6 +1390,15 @@
                             showAlert('Format file harus PDF, JPG, atau PNG', 'error');
                             this.value = '';
                             fileNameDisplay.textContent = 'Tidak ada file dipilih';
+                            
+                            // Reset preview
+                            if (imagePreview) {
+                                imagePreview.style.display = 'none';
+                                imagePreview.src = '#';
+                            }
+                            if (uploadIcon) {
+                                uploadIcon.style.display = 'flex';
+                            }
                             return;
                         }
                         
@@ -1333,10 +1406,60 @@
                             showAlert('Ukuran file maksimal 2MB', 'error');
                             this.value = '';
                             fileNameDisplay.textContent = 'Tidak ada file dipilih';
+                            
+                            // Reset preview
+                            if (imagePreview) {
+                                imagePreview.style.display = 'none';
+                                imagePreview.src = '#';
+                            }
+                            if (uploadIcon) {
+                                uploadIcon.style.display = 'flex';
+                            }
                             return;
                         }
+                        
+                        // Preview untuk gambar (dengan ukuran FIX)
+                        if (file.type.startsWith('image/')) {
+                            const reader = new FileReader();
+                            reader.onload = function(e) {
+                                if (imagePreview) {
+                                    imagePreview.src = e.target.result;
+                                    imagePreview.style.display = 'block';
+                                    
+                                    // Paksa ukuran tetap
+                                    imagePreview.style.width = '150px';
+                                    imagePreview.style.height = '150px';
+                                    imagePreview.style.objectFit = 'cover';
+                                    
+                                    // Sembunyikan icon
+                                    if (uploadIcon) {
+                                        uploadIcon.style.display = 'none';
+                                    }
+                                }
+                            };
+                            reader.readAsDataURL(file);
+                        } else {
+                            // Untuk file PDF, tetap tampilkan icon
+                            if (imagePreview) {
+                                imagePreview.style.display = 'none';
+                                imagePreview.src = '#';
+                            }
+                            if (uploadIcon) {
+                                uploadIcon.style.display = 'flex';
+                            }
+                        }
+                        
                     } else {
                         fileNameDisplay.textContent = 'Tidak ada file dipilih';
+                        
+                        // Reset preview
+                        if (imagePreview) {
+                            imagePreview.style.display = 'none';
+                            imagePreview.src = '#';
+                        }
+                        if (uploadIcon) {
+                            uploadIcon.style.display = 'flex';
+                        }
                     }
                 });
             }
